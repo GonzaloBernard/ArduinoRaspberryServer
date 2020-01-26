@@ -2,26 +2,28 @@
 <html lang="en">
 
 <head>
-    <title>My title</title>
+    <title>Medición actual</title>
 </head>
 
 <body>
-    <table style="margin-left: 20px;">
+    <table style="margin-left:auto;margin-right:auto;font-size:30px">
         <!-- Table headers -->
-            <th>
+            <th align=center>
                 <tr style="color: green; ">
-                <td>pH</td>
-                <td>Temperatura</td>
-                <td>Fecha</td>
+                <td align=center>pH</td>
+                <td align=center>Temperatura</td>
+                <td align=center>Humedad</td>
+                <td align=center>Fecha</td>
         </tr>
     </th>
     <!-- table rows -->
 <tr>
-    <td> {{ph}}</td>
-    <td> {{temp}} </td>
-    <td> {{date}} </td>
-
+    <td align=center> {{ph}}</td>
+    <td align=center> {{temp}} </td>
+    <td align=center> {{hum}} </td>
+    <td align=center> {{date}} </td>
 </tr>
+
 </table>
 </body>
 
