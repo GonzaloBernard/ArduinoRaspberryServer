@@ -27,8 +27,8 @@ DHT dht(DHTPIN, DHTTYPE);
 
 // CONSTRUCTOR PARA LA PANTALLA LCD 16X2
 //Crear el objeto lcd con dirección en hexadecimal tamaño 16 x 2
-//LiquidCrystal_I2C lcd1(0x27,16,2);
-LiquidCrystal_I2C lcd2(0x25,16,2);
+LiquidCrystal_I2C lcd2(0x27,16,2);
+//LiquidCrystal_I2C lcd1(0x25,16,2);
 
 // MEDIDOR DE pH
 #define pHPIN A0
@@ -76,20 +76,18 @@ void loop() {
   lcd2.clear();
 
   //CORROBORAR ERROR EN SENSOR
-//  if (temperatura>0){
+  if (temperatura>0){
   // MOVER EL CURSOR A LA POSICION(0, 0)
-  //lcd1.setCursor(0,0);
   lcd2.setCursor(0,0);  
   // IMPRIMIR EN lcd1
   lcd2.print("T:");  lcd2.print(temperatura,1); lcd2.print("C ");// TEMPERATURA con 1 decimal
   lcd2.print(" H:");  lcd2.print(humedad,0); lcd2.print("%");// HUMEDAD sin decimales;  
-//}
-//else{
+}
+else{
    // IMPRIMIR MENSAJE DE ERROR
-  //lcd1.print("ERROR EN dht");
-//  lcd2.setCursor(0,0); 
-//  lcd2.print("ERROR EN DHT");
-//}
+  lcd2.setCursor(0,0); 
+  lcd2.print("ERROR EN DHT");
+}
 
 for(int i=0;i<10;i++) 
  { 
@@ -114,7 +112,12 @@ for(int i=0;i<10;i++)
  float pHVol=(float)avgValue*5.0/1024/6;
  
  //    CALIBRACION
- float ph = -5.70 * pHVol + 21.34;
+
+////////////////////////////////
+///////  SACAR EL  -1     //////
+////////////////////////////////
+
+ float ph = -1*(-5.70 * pHVol + 21.34);
  lcd2.setCursor(0,1);
  lcd2.print("pH:");lcd2.print(ph);//lcd2.print("  T:00.0C");
  delay(20);
