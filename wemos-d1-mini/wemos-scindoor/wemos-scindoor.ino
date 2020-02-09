@@ -118,6 +118,7 @@ for(int i=0;i<10;i++)
 ////////////////////////////////
 
  float ph = -1*(-5.70 * pHVol + 21.34);
+ if(ph<1 || ph>13){ ph = -1;}
  lcd2.setCursor(0,1);
  lcd2.print("pH:");lcd2.print(ph);//lcd2.print("  T:00.0C");
  delay(20);
