@@ -109,16 +109,28 @@ for(int i=0;i<10;i++)
  avgValue=0;
  //PROMEDIO DE LAS 6 MEDICIONES DEL MEDIO
  for(int i=2;i<8;i++) avgValue+=buf[i];
- float pHVol=(float)avgValue*5.0/1024/6;
  
+ //   Aca hay que configurar la tension maxima de entrada en el pin analogico
+ //   Para controladores de 5 v
+/*
+ * //ARDUINO UNO 5v
+ float pHVol=(float)avgValue*5.0/1024/6;
  //    CALIBRACION
+ float ph = -5.70 * pHVol + 21.34;
+*/
 
-////////////////////////////////
-///////  SACAR EL  -1     //////
-////////////////////////////////
+ //    Para controladores de 3.3v
+ float phVolts=(float)avgValue*3.3/1024/6;
+ //    CALIBRACION
+ //   P=( tension ; pH )
+ // P1=(3 ; 5)  P2=(2.5 ; 7) =>  y = 17 - 4 x
+ float ph = 17 - 4 * phVolts;
+Serial.print("ph: ");Serial.println(ph);
+Serial.print("phVolts: ");Serial.println(phVolts);
+//Serial.print("avgValue: ");Serial.println(avgValue/6);
 
- float ph = -1*(-5.70 * pHVol + 21.34);
- if(ph<1 || ph>13){ ph = -1;}
+ //  VALIDACION DE RANGO
+ if(ph<1 || ph>14){ ph = -1;}
  lcd2.setCursor(0,1);
  lcd2.print("pH:");lcd2.print(ph);//lcd2.print("  T:00.0C");
  delay(20);
@@ -140,7 +152,7 @@ for(int i=0;i<10;i++)
 
     HTTPClient http;
 
-    Serial.print("[HTTP] begin...\n");
+    //Serial.print("[HTTP] begin...\n");
     // configure traged server and url
       String phS = String(ph);
       String temperaturaS = String(temperatura);
@@ -155,7 +167,7 @@ for(int i=0;i<10;i++)
 */
 
 
-    Serial.print("[HTTP] GET...\n");
+    //Serial.print("[HTTP] GET...\n");
     // start connection and send HTTP header
     int httpCode = http.GET();
 
